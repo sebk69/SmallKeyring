@@ -1,0 +1,153 @@
+{% extends "home.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/general.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/profile.form.css") }}">
+{% endblock %}
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% if app.session is not null and app.session.started %}
+                {% set errors = app.flashes("error") %}
+                {% if errors|length > 0 %}
+                    <div class="offset-3 col-6 form bg-warning login-error">
+                        {% for message in errors %}
+                            {{ message }}<br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% set notices = app.flashes("notice") %}
+                {% if notices|length > 0 %}
+                    <div class="offset-3 col-6 form bg-info login-error">
+                        {% for message in notices %}
+                            {{ message }}<br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endif %}
+            <div class="offset-3 col-6 form">
+                <form method="post">
+                    {{ form_row(form._token) }}
+                    <div class="form-group">
+                        {{ form_widget(form.email) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.nickname) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.password) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.passwordConfirm) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.save, { label: "Save" }) }}
+                    </div>
+                </form>
+                <div class="form-group">
+                    <button class="btn btn-light form-control" data-toggle="modal" data-target="#change-passphrase">Change passphrase</button>
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-light form-control" data-toggle="modal" data-target="#extract">Extract your personal data</a>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-danger form-control" data-toggle="modal" data-target="#remove-user">Remove my account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="change-passphrase" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Change passphrase</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ path("post_change_passphrase") }}" method="post">
+                        {{ form_row(form_change_passphrase._token) }}
+                        <div class="form-group">
+                            {{ form_widget(form_change_passphrase.oldPassphrase) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_widget(form_change_passphrase.passphrase) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_widget(form_change_passphrase.passphraseConfirmation) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_widget(form_change_passphrase.change, { label: "Change passphrase" }) }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="remove-user" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Remove account</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>You are about to remove your account.</p>
+                    <p><strong>Be warned that this operation is irreversible and all your data will be lost.</strong></p>
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ path("post_remove_account") }}" method="post">
+                        {{ form_row(form_remove_user._token) }}
+                        <div class="form-group">
+                            {{ form_widget(form_remove_user.remove, { label: "Remove my account" }) }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="extract" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Extract user data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ path("extract_user_data") }}" method="post">
+                        {{ form_row(form_extract._token) }}
+                        <p>You are about to extract all your data.</p>
+                        {% if hasKeyPassword == "1" %}
+                            <p>You must enter your passphrase and your password to proceed</p>
+                            <div class="form-group">
+                                {{ form_widget(form_extract.passphrase) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_widget(form_extract.password) }}
+                            </div>
+                        {% else %}
+                            <p>You must enter your password to proceed</p>
+                            <div class="form-group">
+                                {{ form_widget(form_extract.password) }}
+                            </div>
+                        {% endif %}
+                        <div class="form-group">
+                            {{ form_widget(form_extract.extract, { label: "Extract my personal data" }) }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

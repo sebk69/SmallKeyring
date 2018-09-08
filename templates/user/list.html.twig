@@ -1,0 +1,45 @@
+{% extends "home.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/general.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/user.list.css") }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset("js/user.list.js") }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <table class="table table-striped col-12 user-list">
+                <thead>
+                <tr>
+                    <th>Nickname</th>
+                    <th>Email</th>
+                    <th>Enable</th>
+                    <th>Created at</th>
+                    <th>Updated at</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                <tr>
+                    <td><label>{{ user.getNickname() }}</label></td>
+                    <td><label>{{ user.getEmail() }}</label></td>
+                    <td>
+                        <form action="{{ path("post_enable") }}" method="post">
+                            {{ form_row(user.getEnableForm()._token) }}
+                            {{ form_widget(user.getEnableForm().userId) }}
+                            {{ form_widget(user.getEnableForm().enabled) }}
+                            {{ form_widget(user.getEnableForm().submit) }}
+                        </form>
+                    </td>
+                    <td><label>{{ user.getCreatedAt().format("Y-m-d H:i:s") }}</label></td>
+                    <td><label>{{ user.getUpdatedAt().format("Y-m-d H:i:s") }}</label></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

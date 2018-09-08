@@ -1,0 +1,3 @@
+swiftmailer:
+    url: 'smtp://keys-mailer:25'
+    spool: { type: 'memory' }

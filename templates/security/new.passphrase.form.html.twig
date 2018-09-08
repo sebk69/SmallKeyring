@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/general.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/reset.password.form.css") }}">
+{% endblock %}
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% if app.session is not null and app.session.started %}
+                {% set errors = app.flashes("error") %}
+                {% if errors|length > 0 %}
+                    <div class="offset-3 col-6 bg-warning errors">
+                        {% for message in errors %}
+                            {{ message }}<br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% set notices = app.flashes("notice") %}
+                {% if notices|length > 0 %}
+                    <div class="offset-3 col-6 bg-info errors">
+                        {% for message in notices %}
+                            {{ message }}<br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endif %}
+            <form class="offset-3 col-6 form" method="post" action="{{ path("create_user_key_pair") }}">
+                <h2>Create encryption key</h2>
+                <p>In order to protect your data we will create a certificate to encrypt your sensible data.</p>
+                <p>Theire is two possibilities :</p>
+                <ul>
+                    <li>Leaving the passphrase empty protect your data from external hacking but the adminitrator of this site can eventually crack your sensible data</li>
+                    <li>Fill this form with a passphrase protect fully your data because the certificate can't be used without this passphrase</li>
+                </ul>
+                <p>Note that the passphrase is never stored and it will be asked you at each connection. If you lost your passphrase, nobody can restore your data.</p>
+                {{ form_row(form._token) }}
+                <div class="form-group">
+                    {{ form_widget(form.passphrase) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.passphraseConfirm) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.confirm, { label: "Confirm" }) }}
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

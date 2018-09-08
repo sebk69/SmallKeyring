@@ -1,0 +1,9 @@
+/*
+ *  This file is a part of SmallKeyring
+ *  Copyright 2018 - Sébastien Kus
+ *  Under GNU GPL V3 licence
+ */
+
+.login-form { margin-top: 50px; border: 1px solid #D9D9D9; -webkit-border-radius: 5px 5px 5px 5px; border-radius: 5px 5px 5px 5px; padding: 10px; }
+.login-form .form-control { margin-top: 10px }
+.login-error { border: 1px solid #D9D9D9; -webkit-border-radius: 5px 5px 5px 5px; border-radius: 5px 5px 5px 5px; padding: 10px; margin-top: 10px; }

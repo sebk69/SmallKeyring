@@ -1,0 +1,14 @@
+<div class="list-group col-2 key-list">
+    <a href="{{ path("key_create") }}"
+       class="list-group-item list-group-item-action text-center {% if keyId is defined and keyId == "new" %}active{% endif %}"
+    >
+        <i class="fas fa-plus-circle fa-2x {% if keyId is not defined or keyId != "new" %}text-success{% endif %}"></i>
+    </a>
+    {% for element in list %}
+        <a href="{{ path("key_edit", {"id": element.getId()}) }}"
+           class="list-group-item list-group-item-action text-center {% if keyId is defined and element.getId() == keyId %}active{% endif %}"
+        >
+            {{ element.getTag() }}
+        </a>
+    {% endfor %}
+</div>

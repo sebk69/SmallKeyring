@@ -1,0 +1,27 @@
+security:
+    providers:
+        small_user:
+            id: sebk_small_user_provider
+    encoders:
+        Sebk\SmallUserBundle\Security\User:
+            algorithm: sha512
+        App\Sebk\SmallKeyringModelBundle\Model\Password:
+            algorithm: sha512
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern:    ^/home
+            provider: small_user
+            form_login:
+                login_path: login
+                check_path: login_check
+                default_target_path: home
+                always_use_default_target_path: true
+            logout:
+                path: /home/logout
+                target: /login
+
+    access_control:
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }

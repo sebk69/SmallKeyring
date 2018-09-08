@@ -1,0 +1,22 @@
+sebk_small_orm:
+    connections:
+        default:
+            type: mysql
+            host: "%env(database_host)%"
+            database: "%env(small_keyring_database_name)%"
+            user: "%env(small_keyring_database_user)%"
+            password: "%env(small_keyring_database_password)%"
+    bundles:
+        BundleSmallKeyringModelBundle:
+            connections:
+                default:
+                    dao_namespace: App\Bundle\SmallKeyringModelBundle\Dao
+                    model_namespace: App\Bundle\SmallKeyringModelBundle\Model
+                    validator_namespace: App\Bundle\SmallKeyringModelBundle\Validator
+        SebkSmallUserBundle:
+            vendor: true
+            connections:
+                default:
+                    dao_namespace: Sebk\SmallUserBundle\Dao
+                    model_namespace: Sebk\SmallUserBundle\Model
+                    validator_namespace: Sebk\SmallUserBundle\Validator

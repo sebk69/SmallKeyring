@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Small Keyring</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <style>
+        .form { border: 1px solid #D9D9D9; -webkit-border-radius: 5px 5px 5px 5px; border-radius: 5px 5px 5px 5px; padding: 10px; margin-top: 10px }
+        input { margin-top: -7px; text-decoration: none; }
+        textarea { margin-top: -7px; text-decoration: none; }
+    </style>
+</head>
+<body>
+<h5>Nickname : {{ user.getNickname() }}</h5>
+<h5>Email : {{ user.getEmail() }}</h5>
+{% for key in keys %}
+    {% include "key/extract.html.twig" %}
+{% endfor %}
+</body>
+</html>

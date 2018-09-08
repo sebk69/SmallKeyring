@@ -1,0 +1,8 @@
+/*
+ *  This file is a part of SmallKeyring
+ *  Copyright 2018 - Sébastien Kus
+ *  Under GNU GPL V3 licence
+ */
+
+.form { border: 1px solid #D9D9D9; -webkit-border-radius: 5px 5px 5px 5px; border-radius: 5px 5px 5px 5px; padding: 10px; margin-top: 10px }
+.errors { border: 1px solid #D9D9D9; -webkit-border-radius: 5px 5px 5px 5px; border-radius: 5px 5px 5px 5px; padding: 10px; margin-top: 10px }

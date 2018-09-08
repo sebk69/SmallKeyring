@@ -1,0 +1,160 @@
+{% extends "home.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/general.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/key.form.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/key.list.css") }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset("js/key.form.js") }}"></script>
+    <script src="{{ asset("js/clipboad-pollyfill.js") }}"></script>
+    <script>$(function() {$("#password1").attr("style", "display: none");})</script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% include "key/base.list.html.twig" %}
+            <form class="col-10 form" method="post">
+                {{ form_row(form._token) }}
+                {% if success is defined and success == false %}
+                <p class="bg-warning errors">{{ error | replace({"\n": "<br>"}) }}<br>{{ form_errors(form) }}</p>
+                {% endif %}
+                <div class="form-group row">
+                    <div class="col-2 col-form-label">
+                        {{ form_label(form.tag) }}
+                    </div>
+                    <div class="col-10">
+                        {{ form_widget(form.tag) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2 col-form-label">
+                        {{ form_label(form.username) }}
+                    </div>
+                    <div class="col-3">
+                        {{ form_widget(form.username) }}
+                        <input name="password1" id="password1" type="password" id="prevent_autofill" autocomplete="off" tabindex="-1" />
+                    </div>
+                    <div class="col-3 col-form-label">
+                        {{ form_label(form.password, null, {"label_attr": {"class": "float-left"}}) }}
+                        <div class="float-right">
+                            <span data-toggle="modal" data-target="#generate-password-modal"><a id="open-generate-password" data-toggle="tooltip" data-placement="top" title="Generate password" href="#" class="fas fa-cogs"></a></span>
+                            <a id="copy-password" href="#" data-toggle="tooltip" data-placement="top" title="Copy password to clipboard" class="fas fa-clipboard-list"></a>
+                            <a id="show-password" href="#" data-toggle="tooltip" data-placement="top" title="Show password" class="fas fa-eye"></a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        {{ form_widget(form.password) }}
+                    </div>
+                </div>
+                {% if url is defined %}
+                <div class="form-group row">
+                    <div class="col-2 col-form-label">
+                        {{ form_label(form.url) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_widget(form.url) }}
+                    </div>
+                    <div class="col-4 col-form-label">
+                        <a href="{{ url }}" target="_blank">{{ url }}</a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="form-group row">
+                    <div class="col-2 col-form-label">
+                        {{ form_label(form.url) }}
+                    </div>
+                    <div class="col-10">
+                        {{ form_widget(form.url) }}
+                    </div>
+                </div>
+                {% endif %}
+                <div class="form-group row">
+                    <div class="col-2 col-form-label">
+                        {{ form_label(form.command) }}
+                    </div>
+                    <div class="col-10">
+                        {{ form_widget(form.command) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2 col-form-label">
+                        {{ form_label(form.comment) }}
+                    </div>
+                    <div class="col-10">
+                        {{ form_widget(form.comment) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    {% if keyId != "new" %}
+                        <div class="offset-8 col-2">
+                            <button type="button" class="btn btn-danger fas fa-trash-alt form-control" data-toggle="modal" data-target="#removeModal"></button>
+                        </div>
+                        <div class="col-2">
+                            {{ form_widget(form.save, { label: " " }) }}
+                        </div>
+                    {% else %}
+                        <div class="offset-10 col-2">
+                            {{ form_widget(form.save, { label: " " }) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if keyId != "new" %}
+    <div class="modal" id="removeModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm remove this key</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Please confirm you want to remove this key</p>
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ path("key_delete") }}" method="post">
+                        {{ form_row(formDelete._token) }}
+                        {{ form_widget(formDelete.idKey) }}
+                        {{ form_widget(formDelete.submit, { label: "Delete" }) }}
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="modal" id="generate-password-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Configure password generation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group text-center">
+                        <label class="form-label">Number of chars</label>
+                        <input id="password-generate-nbr-chars" class="form-control" type="text" value="8"><br>
+                    </div>
+                    <div class="checkbox text-center">
+                        <label>
+                            <input id="password-generate-special-chars" type="checkbox" checked> Insert special chars
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="generate-password" class="btn btn-success" data-dismiss="modal">Generate</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

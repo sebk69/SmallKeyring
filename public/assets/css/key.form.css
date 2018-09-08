@@ -1,0 +1,9 @@
+/*
+ *  This file is a part of SmallKeyring
+ *  Copyright 2018 - Sébastien Kus
+ *  Under GNU GPL V3 licence
+ */
+
+#open-generate-password { margin-top: -4px; text-decoration: none; }
+#copy-password { margin-top: -4px; text-decoration: none; }
+#show-password { margin-top: -4px; text-decoration: none; }

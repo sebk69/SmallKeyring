@@ -1,0 +1,7 @@
+<html>
+<body>
+<p>{{ user.nickname }} has invited you join to {{ absolute_url("/") | slice(0, -1)}}.</p>
+<br>
+<p><a href="{{ absolute_url("/") | slice(0, -1) }}{{ path("signup_form") }}?token={{ token }}">Click to signup</a></p>
+</body>
+</html>

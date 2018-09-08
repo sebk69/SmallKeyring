@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <div class="offset-1 col-10 form">
+            <div class="form-group row">
+                <div class="col-2 col-form-label">
+                    Tag
+                </div>
+                <div class="col-10 col-form-label">
+                    <strong>{{ key.getTag() }}</strong>
+                </div>
+            </div>
+            <hr>
+            <div class="form-group row">
+                <div class="col-2 col-form-label">
+                    Username
+                </div>
+                <div class="col-3 col-form-label">
+                    <input type="text" value="{{ key.getUsername() }}" class="form-control">
+                </div>
+                <div class="col-2 col-form-label">
+                    Password
+                </div>
+                <div class="col-5 col-form-label">
+                    <input type="text" value="{{ key.getPassword() }}" class="form-control">
+                </div>
+            </div>
+                <div class="form-group row">
+                    <div class="col-2 col-form-label">
+                        Url
+                    </div>
+                    <div class="col-10 col-form-label">
+                        <a href="{{ key.getUrlCompleted() }}" target="_blank">{{ key.getUrl() }}</a>
+                    </div>
+                </div>
+            <div class="form-group row">
+                <div class="col-2 col-form-label">
+                    Command
+                </div>
+                <div class="col-10 col-form-label">
+                    <textarea class="form-control">{{ key.getCommand() }}</textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2 col-form-label">
+                    Comment
+                </div>
+                <div class="col-10 col-form-label">
+                    <textarea class="form-control">{{ key.getComment() }}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
