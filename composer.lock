@@ -1225,7 +1225,7 @@
                 }
             ],
             "description": "Small Orm for Symfony",
-            "time": "2018-07-17T22:01:12+00:00"
+            "time": "2019-11-07T10:53:35+00:00"
         },
         {
             "name": "sebk/small-user-bundle",
@@ -1244,7 +1244,7 @@
             "require": {
                 "sebk/small-orm-bundle": "dev-symfony4"
             },
-            "type": "project",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "Sebk\\SmallUserBundle\\": ""
@@ -1255,7 +1255,7 @@
                 "GPL-3.0-only"
             ],
             "description": "User bundle for Symfony based on SebkSmallOrmBundle",
-            "time": "2018-08-22T20:17:33+00:00"
+            "time": "2019-11-07T16:56:05+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -1701,16 +1701,16 @@
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v4.1.4",
+            "version": "v4.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "bae4983003c9d451e278504d7d9b9d7fc1846873"
+                "reference": "919a245e0642afa353a333d8bf3352320af85969"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/bae4983003c9d451e278504d7d9b9d7fc1846873",
-                "reference": "bae4983003c9d451e278504d7d9b9d7fc1846873",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/919a245e0642afa353a333d8bf3352320af85969",
+                "reference": "919a245e0642afa353a333d8bf3352320af85969",
                 "shasum": ""
             },
             "require": {
@@ -1768,7 +1768,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2018-08-08T11:48:58+00:00"
+            "time": "2019-04-16T11:21:55+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -2453,6 +2453,17 @@
         {
             "name": "symfony/lts",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/lts.git",
+                "reference": "c1affae45b78aee036effa1759237e7fa96d4af2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/lts/zipball/c1affae45b78aee036effa1759237e7fa96d4af2",
+                "reference": "c1affae45b78aee036effa1759237e7fa96d4af2",
+                "shasum": ""
+            },
             "conflict": {
                 "symfony/asset": ">=5",
                 "symfony/browser-kit": ">=5",
@@ -2530,7 +2541,8 @@
             ],
             "description": "Enforces Long Term Supported versions of Symfony components",
             "homepage": "https://symfony.com",
-            "time": "2018-04-03T05:04:16+00:00"
+            "abandoned": "symfony/flex",
+            "time": "2018-10-03T12:03:19+00:00"
         },
         {
             "name": "symfony/monolog-bridge",
